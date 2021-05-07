@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Library.Entities\Library.Entities.csproj" />
     <ProjectReference Include="..\Library.LoggerService\Library.LoggerService.csproj" />
+    <ProjectReference Include="..\Library.Repository\Library.Repository.csproj" />
   </ItemGroup>
 
 

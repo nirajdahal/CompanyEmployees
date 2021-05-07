@@ -10,7 +10,7 @@ namespace CompanyEmployees.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastingController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -19,7 +19,7 @@ namespace CompanyEmployees.Controllers
 
        private readonly ILoggerManager _logger;
 
-        public WeatherForecastController( ILoggerManager logger)
+        public WeatherForecastingController( ILoggerManager logger)
         {
             _logger = logger;
         }
