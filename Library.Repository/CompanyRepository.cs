@@ -16,6 +16,16 @@ namespace Library.Repository
         {
         }
 
+        public void CreateCompany(Company company)
+        {
+            Create(company);
+        }
+
+        public IEnumerable<Company> GetByIds(IEnumerable<Guid> ids, bool trackChanges) =>
+                FindByCondition(x => ids.Contains(x.Id), trackChanges)
+                .ToList();
+
+
         public IEnumerable<Company> GetAllCompanies(bool trackChanges)
         {
             return FindAll(trackChanges)

@@ -13,3 +13,4 @@
 2021-05-07 22:38:54.3764 INFO Company with id: 3d490a70-94ce-4d15-9494-5248280c2ce2 doesn't exist in the database.
 2021-05-07 23:00:08.2617 INFO Company with id: c9d4c053-49b6-410c-bc78-2d54a9991873 doesn't exist in the database.
 2021-05-07 23:04:53.2833 INFO Employee with id: 86dba8c0-d178-41e7-938c-ed49778fb52c doesn't exist in the database.
+2021-05-07 23:10:41.2161 INFO Employee with id: 86dba8c0-d178-41e7-938c-ed49778fb52c doesn't exist in the database.
