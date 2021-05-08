@@ -15,6 +15,11 @@ namespace Library.Repository
         {
         }
 
+        public void DeleteEmployee(Employee employee)
+        {
+            Delete(employee);
+        }
+
         public void CreateEmployeeForCompany(Guid companyId, Employee employee)
         {
             employee.CompanyId = companyId;

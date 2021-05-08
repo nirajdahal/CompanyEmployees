@@ -16,6 +16,11 @@ namespace Library.Repository
         {
         }
 
+        public void DeleteCompany(Company company)
+        {
+            Delete(company);
+        }
+
         public void CreateCompany(Company company)
         {
             Create(company);
