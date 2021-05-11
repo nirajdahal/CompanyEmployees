@@ -41,7 +41,7 @@ namespace Library.Repository
 
         public Company GetCompany(Guid companyId, bool trackChanges)
         {
-            return FindByCondition(x => x.Id.Equals(companyId), trackChanges).SingleOrDefault();
+            return FindByCondition(x => x.Id.Equals(companyId), trackChanges).Include(x => x.Employees).SingleOrDefault();
         }
     }
 }
