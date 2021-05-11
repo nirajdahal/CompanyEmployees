@@ -3,6 +3,7 @@ using Library.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Library.Repository
 {
@@ -34,7 +35,7 @@ namespace Library.Repository
                 return _employeeRepository;
             }
         }
-        public void Save() => _repositoryContext.SaveChanges();
+        public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
     }
 
 }

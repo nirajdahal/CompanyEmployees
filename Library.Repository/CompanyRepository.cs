@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Library.Repository
 {
@@ -26,22 +27,22 @@ namespace Library.Repository
             Create(company);
         }
 
-        public IEnumerable<Company> GetByIds(IEnumerable<Guid> ids, bool trackChanges) =>
-                FindByCondition(x => ids.Contains(x.Id), trackChanges)
-                .ToList();
+        public async Task<IEnumerable<Company>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges) =>
+               await  FindByCondition(x => ids.Contains(x.Id), trackChanges)
+                .ToListAsync();
 
 
-        public IEnumerable<Company> GetAllCompanies(bool trackChanges)
+        public async Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges)
         {
-            return FindAll(trackChanges)
+            return await FindAll(trackChanges)
                 .OrderBy(c => c.Name).Include(c => c.Employees)
-             .ToList();
+             .ToListAsync();
 
         }
 
-        public Company GetCompany(Guid companyId, bool trackChanges)
+        public async Task<Company> GetCompanyAsync(Guid companyId, bool trackChanges)
         {
-            return FindByCondition(x => x.Id.Equals(companyId), trackChanges).Include(x => x.Employees).SingleOrDefault();
+            return await FindByCondition(x => x.Id.Equals(companyId), trackChanges).Include(x => x.Employees).SingleOrDefaultAsync();
         }
     }
 }
