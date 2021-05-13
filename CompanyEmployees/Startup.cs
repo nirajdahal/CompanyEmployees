@@ -31,8 +31,13 @@ namespace CompanyEmployees
 
             services.AddControllers(config =>
             {
+                
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
+                config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
+                {
+                    Duration = 120
+                });
 
             })
             //.AddXmlDataContractSerializerFormatters()
@@ -50,6 +55,8 @@ namespace CompanyEmployees
                 options.SuppressModelStateInvalidFilter = true;
             });
             services.ConfigureVersioning();
+            services.ConfigureResponseCaching();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +76,7 @@ namespace CompanyEmployees
                 ForwardedHeaders = ForwardedHeaders.All
             });
 
+            app.UseResponseCaching();
 
             app.UseRouting();
 
