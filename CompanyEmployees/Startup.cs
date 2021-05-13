@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using CompanyEmployees.Extensions;
 using Library.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +57,9 @@ namespace CompanyEmployees
             });
             services.ConfigureVersioning();
             services.ConfigureResponseCaching();
+            services.AddMemoryCache();
+            services.ConfigureRateLimitingOptions();
+            services.AddHttpContextAccessor();
 
         }
 
@@ -76,8 +80,9 @@ namespace CompanyEmployees
                 ForwardedHeaders = ForwardedHeaders.All
             });
 
-            app.UseResponseCaching();
 
+            app.UseIpRateLimiting();
+            app.UseResponseCaching();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -87,5 +92,9 @@ namespace CompanyEmployees
                 endpoints.MapControllers();
             });
         }
+    
+
+    
+    
     }
 }

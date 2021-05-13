@@ -1,4 +1,5 @@
-﻿using Library.Contracts;
+﻿using AspNetCoreRateLimit;
+using Library.Contracts;
 using Library.Entities;
 using Library.LoggerService;
 using Library.Repository;
@@ -57,6 +58,23 @@ namespace CompanyEmployees.Extensions
         public static void ConfigureResponseCaching(this IServiceCollection services) =>
             services.AddResponseCaching();
 
-
+        public static void ConfigureRateLimitingOptions(this IServiceCollection services)
+        {
+            var rateLimitRules = new List<RateLimitRule> {
+                new RateLimitRule {
+                    Endpoint = "*:/api/ratelimit",
+                    Limit= 3,
+                    Period = "5m"
+                }
+                                     };
+            services.Configure<IpRateLimitOptions>(opt =>
+            {
+                opt.GeneralRules = rateLimitRules;
+                opt.EnableEndpointRateLimiting = true;
+            });
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+        }
     }
 }
