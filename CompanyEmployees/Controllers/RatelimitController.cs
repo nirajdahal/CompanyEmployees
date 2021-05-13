@@ -10,7 +10,7 @@ namespace CompanyEmployees.Controllers
     [Route("api/ratelimit")]
     public class RatelimitController : ControllerBase
     {
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             return Ok("You cannot send reqwuest more than 3 times in 5 minutes. Try this feature !!");
         }

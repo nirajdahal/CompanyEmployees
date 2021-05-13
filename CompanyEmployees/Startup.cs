@@ -60,6 +60,8 @@ namespace CompanyEmployees
             services.AddMemoryCache();
             services.ConfigureRateLimitingOptions();
             services.AddHttpContextAccessor();
+            services.AddAuthentication();
+            services.ConfigureIdentity();
 
         }
 
@@ -85,6 +87,7 @@ namespace CompanyEmployees
             app.UseResponseCaching();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

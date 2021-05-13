@@ -22,6 +22,7 @@ namespace CompanyEmployees
             CreateMap<CompanyForUpdateDto, Company>();
             CreateMap<Company, CompanyForUpdateDto>().ForMember(dest => dest.Employees, opt => opt.MapFrom(src => src.Employees));
             CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
+            CreateMap<UserForRegistrationDto, User>();
 
 
 
