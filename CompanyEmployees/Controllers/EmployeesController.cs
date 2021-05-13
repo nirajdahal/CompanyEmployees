@@ -3,6 +3,7 @@ using Library.Contracts;
 using Library.Entities.DataTransferObjects;
 using Library.Entities.Models;
 using Library.Entities.RequestFeatures;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace CompanyEmployees.Controllers
 {
     [Route("api/companies/{companyId}/employees")]
-    [ApiController]
+    [ApiController, Authorize]
     public class EmployeesController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
@@ -63,7 +64,7 @@ namespace CompanyEmployees.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Manager")]
         public async Task<IActionResult> CreateEmployeeForCompany(Guid companyId, [FromBody] EmployeeForCreationDto employee)
         {
             if (employee == null)
@@ -91,7 +92,7 @@ namespace CompanyEmployees.Controllers
             return CreatedAtRoute("GetEmployeeForCompany", new { companyId, id = employeeToReturn.Id}, employeeToReturn);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Manager")]
         public async Task<IActionResult> DeleteEmployeeForCompany(Guid companyId, Guid id)
         {
             var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
@@ -112,7 +113,7 @@ namespace CompanyEmployees.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize(Roles = "Manager")]
         public async Task<IActionResult> UpdateEmployeeForCompany(Guid companyId, Guid id, [FromBody] EmployeeForUpdateDto employee)
         {
             if (employee == null)
@@ -144,7 +145,7 @@ namespace CompanyEmployees.Controllers
         }
 
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{id}"), Authorize(Roles = "Manager")]
         public async Task<IActionResult> PartiallyUpdateEmployeeForCompany(Guid companyId, Guid id, [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDoc)
         {
             if (patchDoc == null)

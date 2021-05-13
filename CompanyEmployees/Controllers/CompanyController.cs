@@ -2,6 +2,7 @@
 using Library.Contracts;
 using Library.Entities.DataTransferObjects;
 using Library.Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +14,10 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Controllers
 {
-    [ApiVersion("1.0")]
+    [ApiVersion("1.0"), Authorize]
     [Route("api/companies")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class CompanyController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
@@ -29,9 +31,14 @@ namespace CompanyEmployees.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+
+
+        [HttpGet(Name = "GetCompanies")]
+
         [ResponseCache(CacheProfileName = "120SecondsDuration")]
 
+        // [Authorize(Roles = "Admin, Project Manager")]
+      
         public async Task<IActionResult> GetCompanies()
         {
        
@@ -60,7 +67,7 @@ namespace CompanyEmployees.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
         {
             if (company == null)
@@ -99,7 +106,7 @@ namespace CompanyEmployees.Controllers
             return Ok(companiesToReturn);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteCompany(Guid id)
         {
             var company = await _repository.Company.GetCompanyAsync(id, trackChanges: false);
@@ -114,7 +121,7 @@ namespace CompanyEmployees.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
         {
             if (company == null)
@@ -139,7 +146,7 @@ namespace CompanyEmployees.Controllers
         }
 
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{id}"), Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateCompanyDataPartially(Guid id,[FromBody] JsonPatchDocument<CompanyForUpdateDto> patchDoc)
         {
             if (patchDoc == null)

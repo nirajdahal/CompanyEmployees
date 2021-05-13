@@ -62,6 +62,8 @@ namespace CompanyEmployees
             services.AddHttpContextAccessor();
             services.AddAuthentication();
             services.ConfigureIdentity();
+            services.ConfigureJwtService(Configuration);
+            
 
         }
 
@@ -89,6 +91,7 @@ namespace CompanyEmployees
 
             app.UseAuthentication();
             app.UseAuthorization();
+          
 
             app.UseEndpoints(endpoints =>
             {
