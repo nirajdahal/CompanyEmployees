@@ -136,14 +136,41 @@ namespace CompanyEmployees.Extensions
                 {
                     Title = "CompanyEmployee",
                     Version = "v1",
-                    Description = "Made By : Niraj Dahal"
+                    Description = "CompanyEmployeeAPI Made By: Niraj Dahal",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Niraj Dahal",
+                        Email = "nirajdahal09@gmail.com",
+                        Url = new Uri("https://nirajdahal.com.np"),
+                    }
+
                 });
                 s.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Title = "CompanyEmployee",
                     Version = "v2"
                 });
-            });
+                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Place to add JWT with Bearer",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                s.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+
+                    {
+                        new OpenApiSecurityScheme {
+                            Reference = new OpenApiReference{
+                                Type = ReferenceType.SecurityScheme, Id = "Bearer"}, Name = "Bearer",},
+                        new List<string>()
+                    }
+                });
+
+                });
         }
     }
 }
