@@ -8,9 +8,12 @@ namespace CompanyEmployees.Controllers
 {
     [ApiController]
     [Route("api/ratelimit")]
+    [ApiExplorerSettings(GroupName = "v1")]
+
     public class RatelimitController : ControllerBase
     {
-        public IActionResult Get()
+        [HttpGet]
+        public IActionResult GetResult()
         {
             return Ok("You cannot send reqwuest more than 3 times in 5 minutes. Try this feature !!");
         }

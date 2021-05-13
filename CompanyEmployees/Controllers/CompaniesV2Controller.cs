@@ -1,5 +1,4 @@
 ﻿using Library.Contracts;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Controllers
 {
-    [ApiVersion("2.0"), Authorize]
+    [ApiVersion("2.0")]
     [Route("api/companies")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v2")]
     public class CompaniesV2Controller : ControllerBase
     {
         private readonly IRepositoryManager _repository;

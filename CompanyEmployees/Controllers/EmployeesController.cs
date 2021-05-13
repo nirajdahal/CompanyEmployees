@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/companies/{companyId}/employees")]
     [ApiController, Authorize]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class EmployeesController : ControllerBase
     {
         private readonly IRepositoryManager _repository;

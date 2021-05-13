@@ -63,7 +63,7 @@ namespace CompanyEmployees
             services.AddAuthentication();
             services.ConfigureIdentity();
             services.ConfigureJwtService(Configuration);
-            
+            services.ConfigureSwagger();
 
         }
 
@@ -88,11 +88,16 @@ namespace CompanyEmployees
             app.UseIpRateLimiting();
             app.UseResponseCaching();
             app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI(s =>
+            {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "CompanyEmployee API v1");
+                s.SwaggerEndpoint("/swagger/v2/swagger.json", "CompanyEmployee API v2");
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
-          
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

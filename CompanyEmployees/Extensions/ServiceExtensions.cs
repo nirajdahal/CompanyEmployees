@@ -127,6 +127,23 @@ namespace CompanyEmployees.Extensions
             });
         }
 
-        
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(s =>
+            {
+
+                s.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "CompanyEmployee",
+                    Version = "v1",
+                    Description = "Made By : Niraj Dahal"
+                });
+                s.SwaggerDoc("v2", new OpenApiInfo
+                {
+                    Title = "CompanyEmployee",
+                    Version = "v2"
+                });
+            });
+        }
     }
 }

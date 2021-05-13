@@ -33,7 +33,7 @@ namespace CompanyEmployees.Controllers
 
 
 
-        [HttpGet(Name = "GetCompanies")]
+        [HttpGet]
 
         [ResponseCache(CacheProfileName = "120SecondsDuration")]
 
