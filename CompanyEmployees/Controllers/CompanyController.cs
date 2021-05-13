@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/companies")]
     [ApiController]
     public class CompanyController : ControllerBase
@@ -31,7 +32,7 @@ namespace CompanyEmployees.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCompanies()
         {
-            Thread.Sleep(10000);
+       
             var companies = await _repository.Company.GetAllCompaniesAsync(trackChanges: false);
 
             var companyDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
